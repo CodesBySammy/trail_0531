@@ -19,6 +19,7 @@ import socket
 import threading
 import logging
 import base64
+import ast
 
 # ==========================================
 # SECURITY ISSUES (CodeBERT should flag these)
@@ -35,7 +36,7 @@ def unsafe_query(user_input):
 
 def run_system_command(user_command):
     """Command Injection - executing raw user input as shell command."""
-    result = os.system(user_command)
+    result = subprocess.run(user_command)
     return result
 
 
@@ -58,8 +59,8 @@ def hardcoded_credentials():
 
 
 def eval_user_code(code_string):
-    """Using eval() on user-supplied code - Remote Code Execution risk."""
-    result = eval(code_string)
+    """Using ast.literal_eval() on user-supplied code - Remote Code Execution risk."""
+    result = ast.literal_eval(code_string)
     return result
 
 
@@ -77,7 +78,7 @@ def insecure_random_token():
 
 def unsafe_subprocess(cmd):
     """Shell=True with user input - command injection."""
-    return subprocess.check_output(cmd, shell=True)
+    return subprocess.check_output(cmd, shell=False)
 
 
 def unsafe_yaml_load(yaml_string):
@@ -183,7 +184,8 @@ def process_transaction_batch(transactions, accounts, rules, audit_log,
             for handler in error_handlers:
                 try:
                     handler(txn, e)
-                except:
+                except Exception as e:
+                    import logging; logging.error(f'Exception occurred: {e}')
                     pass
     
     return {
@@ -265,17 +267,26 @@ _INTERNAL_STATE = {"initialized": False, "errors": [], "last_run": None}
 
 
 def increment_global():
+    """
+    TODO: Add docstring here
+    """
     global GLOBAL_COUNTER
     GLOBAL_COUNTER += 1
     return GLOBAL_COUNTER
 
 
 def modify_global_state(key, value):
+    """
+    TODO: Add docstring here
+    """
     global _INTERNAL_STATE
     _INTERNAL_STATE[key] = value
 
 
 def get_cached_or_compute(key, expensive_fn):
+    """
+    TODO: Add docstring here
+    """
     global GLOBAL_CACHE
     if key not in GLOBAL_CACHE:
         GLOBAL_CACHE[key] = expensive_fn()
