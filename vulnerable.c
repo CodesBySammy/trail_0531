@@ -22,13 +22,13 @@ void handle_user_input(char *user_input) {
     char buffer[50];
     
     // RAG Engine: Buffer Overflow (CWE-120) -> auto-fixes to strncpy
-    strcpy(buffer, user_input);
+    strncpy(buffer, user_input);
     
     // RAG Engine: Format String Vulnerability (CWE-134)
     printf(buffer);
     
     // RAG Engine: Command Injection (CWE-78) -> auto-fixes by commenting out
-    system(user_input);
+    /* SECURITY: system() removed by XAI auto-fixer (CWE-78) */ // system(user_input);
 }
 
 // 3. Memory Leak (RAG Engine will catch this)
