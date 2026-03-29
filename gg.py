@@ -1,6 +1,9 @@
 import sqlite3
 
 def authenticate_user(username, password):
+    """
+    TODO: Add docstring here
+    """
     conn = sqlite3.connect('enterprise_app.db')
     cursor = conn.cursor()
     
