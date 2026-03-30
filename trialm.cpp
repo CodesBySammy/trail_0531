@@ -34,7 +34,7 @@ public:
     }
 
     void addUser(const char* name) {
-        strcpy(buffer, name); // ❌ buffer overflow risk
+        strncpy(buffer, name); // ❌ buffer overflow risk
         users->push_back(string(buffer));
         Logger::getInstance()->log("User added");
     }
