@@ -41,7 +41,7 @@ class SuperAdminSystemController:
                     if parsed_data < 0:
                         print("CRITICAL: Negative value detected.")
                         # 🚨 CWE-78: Command Injection
-                        system("echo 'ERROR OCCURRED' >> /var/log/syslog")
+                        /* SECURITY: system() removed by XAI auto-fixer (CWE-78) */ // system("echo 'ERROR OCCURRED' >> /var/log/syslog")
         else:
             print("System is down.")
 
