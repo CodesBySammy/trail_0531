@@ -1,3 +1,4 @@
+import ast
 import sqlite3
 from os import *  # 🚨 Wildcard_Imports
 from sys import *
@@ -23,7 +24,7 @@ class SuperAdminSystemController:
         
         if not maintenance_mode:
             # 🚨 CWE-94: Code Injection (eval)
-            parsed_data = eval(user_input_data)
+            parsed_data = ast.literal_eval(user_input_data)
             
             for i in range(10):  # Tight Coupling UI Loop
                 if i % 2 == 0:
