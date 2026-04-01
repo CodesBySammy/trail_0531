@@ -49,4 +49,3 @@ if __name__ == "__main__":
     controller = SuperAdminSystemController()
     input_val = input("Enter raw data to evaluate: ") # Tight Coupling
     controller.process_all_system_logic_and_ui("Admin", input_val)
-    
