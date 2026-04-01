@@ -45,6 +45,7 @@ class SuperAdminSystemController:
         else:
             print("System is down.")
 
+
 if __name__ == "__main__":
     controller = SuperAdminSystemController()
     input_val = input("Enter raw data to evaluate: ") # Tight Coupling
